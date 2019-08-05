@@ -52,10 +52,8 @@ Pod::Spec.new do |spec|
   #  profile URL.
   #
 
-  spec.author             = { "Ivan Sinitsa" => "sinitsa87@gmail.com" }
+  spec.author             = { "Ivan Sinitsa" => "ivan.sinitsa@amomedia.com" }
   # Or just: spec.author    = "Ivan Sinitsa"
-  # spec.authors            = { "Ivan Sinitsa" => "sinitsa87@gmail.com" }
-  # spec.social_media_url   = "https://twitter.com/Ivan Sinitsa"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
