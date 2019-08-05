@@ -1,0 +1,23 @@
+PODS:
+  - leveldb-library (1.20)
+  - LevelDBWrapper (0.0.3):
+    - leveldb-library (~> 1.18)
+
+DEPENDENCIES:
+  - LevelDBWrapper (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - leveldb-library
+
+EXTERNAL SOURCES:
+  LevelDBWrapper:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  LevelDBWrapper: 50b6deae1221643377809b29aac0bfe2621fccbc
+
+PODFILE CHECKSUM: 51743d36b7f29b8ba238398f17351903ec5a405d
+
+COCOAPODS: 1.7.5
