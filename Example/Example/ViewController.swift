@@ -14,11 +14,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var db: APLevelDB? = nil
+        var db: FTLevelDB? = nil
 
         let filePath = NSHomeDirectory() + "/Documents/" + "database"
-        if let database = try? APLevelDB(path: filePath) {
-            db = database
+        
+        do {
+            if let database = try? FTLevelDB(path: filePath) {
+                db = database
+            }
         }
 
         for i in 0..<10000 {
@@ -27,7 +30,7 @@ class ViewController: UIViewController {
         print("2")
 
         let value = db?["key1"]
-        print("value \(value)")
+        print("value \(String(describing: value))")
     }
 
     

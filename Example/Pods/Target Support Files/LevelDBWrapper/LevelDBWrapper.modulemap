@@ -1,0 +1,6 @@
+framework module LevelDBWrapper {
+  umbrella header "LevelDBWrapper-umbrella.h"
+
+  export *
+  module * { export * }
+}
