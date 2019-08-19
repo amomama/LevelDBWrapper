@@ -10,7 +10,7 @@
 #endif
 #endif
 
-#import "FTLevelDB.h"
+#import "AMLevelDB.h"
 #import "LevelDBWrapper.h"
 
 FOUNDATION_EXPORT double LevelDBWrapperVersionNumber;

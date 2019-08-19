@@ -1,5 +1,5 @@
 //
-//  FTLevelDB.h
+//  AMLevelDB.h
 //
 //  Created by Adam Preble on 1/23/12.
 //  Copyright (c) 2012 Adam Preble. All rights reserved.
@@ -24,16 +24,16 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const FTLevelDBErrorDomain;
+extern NSString * const AMLevelDBErrorDomain;
 
-@class FTLevelDBIterator;
-@protocol FTLevelDBWriteBatch;
+@class AMLevelDBIterator;
+@protocol AMLevelDBWriteBatch;
 
-@interface FTLevelDB : NSObject
+@interface AMLevelDB : NSObject
 
 @property (nonatomic, readonly, strong) NSString *path;
 
-+ (FTLevelDB *)levelDBWithPath:(NSString *)path error:(NSError *__autoreleasing*)errorOut;
++ (AMLevelDB *)levelDBWithPath:(NSString *)path error:(NSError *__autoreleasing*)errorOut;
 - (void)close;
 
 - (BOOL)setData:(NSData *)data forKey:(NSString *)key;
@@ -70,17 +70,17 @@ extern NSString * const FTLevelDBErrorDomain;
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)key;
 
 // Batch write/atomic update support:
-- (id<FTLevelDBWriteBatch>)beginWriteBatch;
+- (id<AMLevelDBWriteBatch>)beginWriteBatch;
 
 @end
 
 
-@interface FTLevelDBIterator : NSObject
+@interface AMLevelDBIterator : NSObject
 
-+ (id)iteratorWithLevelDB:(FTLevelDB *)db;
++ (id)iteratorWithLevelDB:(AMLevelDB *)db;
 
 // Designated initializer:
-- (id)initWithLevelDB:(FTLevelDB *)db;
+- (id)initWithLevelDB:(AMLevelDB *)db;
 
 - (BOOL)seekToKey:(NSString *)key;
 - (NSString *)nextKey;
@@ -91,7 +91,7 @@ extern NSString * const FTLevelDBErrorDomain;
 @end
 
 
-@protocol FTLevelDBWriteBatch <NSObject>
+@protocol AMLevelDBWriteBatch <NSObject>
 
 - (void)setData:(NSData *)data forKey:(NSString *)key;
 - (void)setString:(NSString *)str forKey:(NSString *)key;

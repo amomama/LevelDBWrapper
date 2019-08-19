@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "LevelDBWrapper"
-  spec.version      = "0.0.5"
+  spec.version      = "0.0.6"
   spec.summary      = "Wrapper for Google level-db library"
 
   # This description is used to generate tags and improve search results.
@@ -138,7 +138,7 @@ Pod::Spec.new do |spec|
   spec.prefix_header_file = false
 
   base_dir = "LevelDBWrapper/"
-  spec.source_files = base_dir + '**/*.[mh]', base_dir + "#{spec.version}/FTLevelDB.mm"
+  spec.source_files = base_dir + '**/*.[mh]', base_dir + "#{spec.version}/AMLevelDB.mm"
 
   # s.public_header_files = base_dir + 'Public/*.h'
   spec.libraries = ['c++']

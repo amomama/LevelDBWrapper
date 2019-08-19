@@ -14,12 +14,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var db: FTLevelDB? = nil
+        var db: AMLevelDB? = nil
 
         let filePath = NSHomeDirectory() + "/Documents/" + "database"
         
         do {
-            if let database = try? FTLevelDB(path: filePath) {
+            if let database = try? AMLevelDB(path: filePath) {
                 db = database
             }
         }

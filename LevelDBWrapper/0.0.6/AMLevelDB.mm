@@ -1,5 +1,5 @@
 //
-//  FTLevelDB.m
+//  AMLevelDB.m
 //
 //  Created by Adam Preble on 1/23/12.
 //  Copyright (c) 2012 Adam Preble. All rights reserved.
@@ -23,7 +23,7 @@
 //	THE SOFTWARE.
 
 //
-//  Portions of FTLevelDB are based on LevelDB-ObjC:
+//  Portions of AMLevelDB are based on LevelDB-ObjC:
 //	https://github.com/hoisie/LevelDB-ObjC
 //  Specifically the SliceFromString/StringFromSlice macros, and the structure of
 //  the enumeration methods.  License for those potions follows:
@@ -49,32 +49,32 @@
 //	THE SOFTWARE.
 //
 
-#import "FTLevelDB.h"
+#import "AMLevelDB.h"
 
 #import "leveldb/db.h"
 #import "leveldb/options.h"
 #import "leveldb/write_batch.h"
 
-NSString * const FTLevelDBErrorDomain = @"FTLevelDBErrorDomain";
+NSString * const AMLevelDBErrorDomain = @"AMLevelDBErrorDomain";
 
 #define SliceFromString(_string_) (leveldb::Slice((char *)[_string_ UTF8String], [_string_ lengthOfBytesUsingEncoding:NSUTF8StringEncoding]))
 #define StringFromSlice(_slice_) ([[NSString alloc] initWithBytes:_slice_.data() length:_slice_.size() encoding:NSUTF8StringEncoding])
 
 
-@interface FTLevelDBWriteBatch : NSObject <FTLevelDBWriteBatch> {
+@interface AMLevelDBWriteBatch : NSObject <AMLevelDBWriteBatch> {
     @package
     leveldb::WriteBatch _batch;
 }
 
-@property (nonatomic, strong) FTLevelDB *levelDB;
+@property (nonatomic, strong) AMLevelDB *levelDB;
 
-- (id)initWithLevelDB:(FTLevelDB *)levelDB;
+- (id)initWithLevelDB:(AMLevelDB *)levelDB;
 @end
 
 
-#pragma mark - FTLevelDB
+#pragma mark - AMLevelDB
 
-@interface FTLevelDB () {
+@interface AMLevelDB () {
     leveldb::DB *_db;
     leveldb::ReadOptions _readOptions;
     leveldb::WriteOptions _writeOptions;
@@ -85,14 +85,14 @@ NSString * const FTLevelDBErrorDomain = @"FTLevelDBErrorDomain";
 @end
 
 
-@implementation FTLevelDB
+@implementation AMLevelDB
 
 @synthesize path = _path;
 @synthesize db = _db;
 
-+ (FTLevelDB *)levelDBWithPath:(NSString *)path error:(NSError *__autoreleasing *)errorOut
++ (AMLevelDB *)levelDBWithPath:(NSString *)path error:(NSError *__autoreleasing *)errorOut
 {
-    return [[FTLevelDB alloc] initWithPath:path error:errorOut];
+    return [[AMLevelDB alloc] initWithPath:path error:errorOut];
 }
 
 - (id)initWithPath:(NSString *)path error:(NSError *__autoreleasing *)errorOut
@@ -110,7 +110,7 @@ NSString * const FTLevelDBErrorDomain = @"FTLevelDBErrorDomain";
             if (errorOut)
             {
                 NSString *statusString = [[NSString alloc] initWithCString:status.ToString().c_str() encoding:NSUTF8StringEncoding];
-                *errorOut = [NSError errorWithDomain:FTLevelDBErrorDomain
+                *errorOut = [NSError errorWithDomain:AMLevelDBErrorDomain
                                                 code:0
                                             userInfo:[NSDictionary dictionaryWithObjectsAndKeys:statusString, NSLocalizedDescriptionKey, nil]];
             }
@@ -338,18 +338,18 @@ NSString * const FTLevelDBErrorDomain = @"FTLevelDBErrorDomain";
 
 #pragma mark - Atomic Updates
 
-- (id<FTLevelDBWriteBatch>)beginWriteBatch
+- (id<AMLevelDBWriteBatch>)beginWriteBatch
 {
-    FTLevelDBWriteBatch *batch = [[FTLevelDBWriteBatch alloc] initWithLevelDB:self];
+    AMLevelDBWriteBatch *batch = [[AMLevelDBWriteBatch alloc] initWithLevelDB:self];
     return batch;
 }
 
-- (BOOL)commitWriteBatch:(id<FTLevelDBWriteBatch>)theBatch
+- (BOOL)commitWriteBatch:(id<AMLevelDBWriteBatch>)theBatch
 {
     if (!theBatch)
         return NO;
 
-    FTLevelDBWriteBatch *batch = theBatch;
+    AMLevelDBWriteBatch *batch = theBatch;
 
     leveldb::Status status;
     status = _db->Write(_writeOptions, &batch->_batch);
@@ -359,26 +359,26 @@ NSString * const FTLevelDBErrorDomain = @"FTLevelDBErrorDomain";
 @end
 
 
-#pragma mark - FTLevelDBIterator
+#pragma mark - AMLevelDBIterator
 
-@interface FTLevelDBIterator () {
+@interface AMLevelDBIterator () {
     leveldb::Iterator *_iter;
 }
 
-@property (nonatomic, strong) FTLevelDB *levelDB;
+@property (nonatomic, strong) AMLevelDB *levelDB;
 @end
 
 
 
-@implementation FTLevelDBIterator
+@implementation AMLevelDBIterator
 
-+ (id)iteratorWithLevelDB:(FTLevelDB *)db
++ (id)iteratorWithLevelDB:(AMLevelDB *)db
 {
-    FTLevelDBIterator *iter = [[[self class] alloc] initWithLevelDB:db];
+    AMLevelDBIterator *iter = [[[self class] alloc] initWithLevelDB:db];
     return iter;
 }
 
-- (id)initWithLevelDB:(FTLevelDB *)db
+- (id)initWithLevelDB:(AMLevelDB *)db
 {
     if ((self = [super init]))
     {
@@ -456,11 +456,11 @@ NSString * const FTLevelDBErrorDomain = @"FTLevelDBErrorDomain";
 
 
 
-#pragma mark - FTLevelDBWriteBatch
+#pragma mark - AMLevelDBWriteBatch
 
-@implementation FTLevelDBWriteBatch
+@implementation AMLevelDBWriteBatch
 
-- (id)initWithLevelDB:(FTLevelDB *)levelDB {
+- (id)initWithLevelDB:(AMLevelDB *)levelDB {
     self = [super init];
     if (self != nil) {
         self->_levelDB = levelDB;
