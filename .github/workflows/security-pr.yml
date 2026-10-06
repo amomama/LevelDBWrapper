@@ -1,0 +1,23 @@
+name: AppSec review (advisory)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+
+jobs:
+  appsec:
+    uses: amomama/security-workflows/.github/workflows/security-pr.yml@v1
+    with:
+      workflows-ref: v1
+      slack-channel: ${{ vars.APPSEC_SLACK_CHANNEL }}
+      comment-min-severity: ${{ vars.APPSEC_COMMENT_MIN_SEVERITY }}
+      slack-min-severity: ${{ vars.APPSEC_SLACK_MIN_SEVERITY }}
+    secrets:
+      APPSEC_GITHUB_WORKFLOWS_READ_TOKEN: ${{ secrets.APPSEC_GITHUB_WORKFLOWS_READ_TOKEN }}
+      APPSEC_SEMGREP_APP_TOKEN: ${{ secrets.APPSEC_SEMGREP_APP_TOKEN }}
+      APPSEC_SLACK_BOT_TOKEN: ${{ secrets.APPSEC_SLACK_BOT_TOKEN }}
